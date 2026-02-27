@@ -1,0 +1,49 @@
+{
+  "name": "Ledger — Personal Finance",
+  "short_name": "Ledger",
+  "description": "A private, AI-powered personal finance manager. Track income, expenses, debts, savings goals and bills. Get brutally honest AI advice. Works offline. Your data never leaves your device.",
+  "start_url": "./finance-manager.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "background_color": "#F7F6F3",
+  "theme_color": "#2D5BE3",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "categories": ["finance", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Add Transaction",
+      "short_name": "Add",
+      "description": "Log a new income or expense",
+      "url": "./finance-manager.html#transactions"
+    },
+    {
+      "name": "Scan Bill",
+      "short_name": "Scan",
+      "description": "Scan a receipt or bill",
+      "url": "./finance-manager.html#bills"
+    },
+    {
+      "name": "AI Advisor",
+      "short_name": "Advisor",
+      "description": "Chat with your AI financial advisor",
+      "url": "./finance-manager.html#advisor"
+    }
+  ],
+  "screenshots": []
+}
