@@ -38,7 +38,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: DM Sans, sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
@@ -77,7 +77,7 @@
   .sidebar-logo span {
     font-size: 11px;
     color: var(--text-muted);
-    font-family: 'DM Mono', monospace;
+    font-family: DM Mono, monospace;
     display: block;
     margin-top: 2px;
   }
@@ -117,7 +117,7 @@
   }
 
   .sidebar-balance {
-    font-family: 'DM Mono', monospace;
+    font-family: DM Mono, monospace;
     font-size: 11px;
     color: var(--text-muted);
     margin-bottom: 4px;
@@ -192,7 +192,7 @@
   }
 
   .stat-label { font-size: 12px; color: var(--text-muted); }
-  .stat-change { font-size: 11px; margin-top: 6px; font-family: 'DM Mono', monospace; }
+  .stat-change { font-size: 11px; margin-top: 6px; font-family: DM Mono, monospace; }
   .stat-change.up { color: var(--success); }
   .stat-change.down { color: var(--danger); }
 
@@ -207,7 +207,7 @@
     font-weight: 500;
     cursor: pointer;
     border: none;
-    font-family: 'DM Sans', sans-serif;
+    font-family: DM Sans, sans-serif;
     transition: all 0.15s;
     white-space: nowrap;
   }
@@ -231,7 +231,7 @@
     border: 1px solid var(--border);
     border-radius: 7px;
     font-size: 13.5px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: DM Sans, sans-serif;
     background: var(--surface);
     color: var(--text);
     transition: border-color 0.15s;
@@ -298,7 +298,7 @@
   .txn-info { flex: 1; min-width: 0; }
   .txn-name { font-weight: 500; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .txn-meta { font-size: 11.5px; color: var(--text-muted); }
-  .txn-amount { font-family: 'DM Mono', monospace; font-size: 13.5px; font-weight: 500; white-space: nowrap; }
+  .txn-amount { font-family: DM Mono, monospace; font-size: 13.5px; font-weight: 500; white-space: nowrap; }
   .txn-amount.income { color: var(--success); }
   .txn-amount.expense { color: var(--danger); }
 
@@ -364,8 +364,8 @@
   .budget-row:last-child { border-bottom: none; }
   .budget-cat { flex: 1; font-weight: 500; font-size: 13.5px; }
   .budget-amounts { text-align: right; min-width: 100px; }
-  .budget-spent { font-family: 'DM Mono', monospace; font-size: 13px; }
-  .budget-total { font-size: 11px; color: var(--text-muted); font-family: 'DM Mono', monospace; }
+  .budget-spent { font-family: DM Mono, monospace; font-size: 13px; }
+  .budget-total { font-size: 11px; color: var(--text-muted); font-family: DM Mono, monospace; }
 
   /* DEBT CARD */
   .debt-card {
@@ -390,7 +390,7 @@
   }
   .goal-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
   .goal-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
-  .goal-amounts { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 12px; margin-top: 6px; }
+  .goal-amounts { display: flex; justify-content: space-between; font-family: DM Mono, monospace; font-size: 12px; margin-top: 6px; }
 
   /* BILL BOOK */
   .bill-item {
@@ -454,7 +454,7 @@
     border: 1px solid var(--border);
     border-radius: 0 0 var(--radius) var(--radius);
   }
-  .ai-input-row input { flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 7px; font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; }
+  .ai-input-row input { flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 7px; font-size: 13px; font-family: DM Sans, sans-serif; outline: none; }
   .ai-input-row input:focus { border-color: var(--accent); }
 
   /* NOTIFICATIONS */
@@ -492,13 +492,13 @@
   }
   .upcoming-item:last-child { border-bottom: none; }
   .upcoming-date {
-    font-family: 'DM Mono', monospace;
+    font-family: DM Mono, monospace;
     font-size: 11px;
     color: var(--text-muted);
     min-width: 55px;
   }
   .upcoming-label { flex: 1; font-size: 13px; }
-  .upcoming-amount { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--danger); }
+  .upcoming-amount { font-family: DM Mono, monospace; font-size: 13px; color: var(--danger); }
 
   /* REPORT CHARTS */
   .chart-bar-wrap { display: flex; flex-direction: column; gap: 10px; }
@@ -506,7 +506,7 @@
   .chart-bar-label { font-size: 12px; min-width: 90px; color: var(--text-muted); }
   .chart-bar-track { flex: 1; height: 8px; background: var(--surface2); border-radius: 99px; overflow: hidden; }
   .chart-bar-fill { height: 100%; border-radius: 99px; transition: width 0.6s; }
-  .chart-bar-val { font-family: 'DM Mono', monospace; font-size: 11.5px; min-width: 80px; text-align: right; }
+  .chart-bar-val { font-family: DM Mono, monospace; font-size: 11.5px; min-width: 80px; text-align: right; }
 
   /* CATEGORY COLORS */
   .cat-food { background: #FF6B6B22; color: #C73E3E; }
@@ -555,11 +555,114 @@
     .grid-4 { grid-template-columns: 1fr 1fr; }
   }
 
+  /* ── MOBILE: bottom tab bar replaces sidebar ── */
   @media (max-width: 600px) {
+    #app { flex-direction: column; }
+
+    /* Hide the sidebar entirely */
+    #sidebar { display: none; }
+
+    /* Main fills full width, with padding for bottom nav */
+    #main {
+      margin-left: 0;
+      max-width: 100vw;
+      padding: 16px 14px 80px; /* bottom padding clears tab bar */
+    }
+
+    /* All grids → single column */
     .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-    #main { padding: 14px; }
     .form-row { grid-template-columns: 1fr; }
+
+    /* Cards slightly more compact */
+    .card { padding: 14px; }
+    .page-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .page-title { font-size: 22px; }
+    .stat-value { font-size: 22px; }
+
+    /* Modals full-width on mobile */
+    .modal {
+      width: 96vw !important;
+      max-width: 96vw !important;
+      margin: 8px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    /* Bottom tab bar */
+    #mobile-nav {
+      display: flex !important;
+    }
   }
+
+  /* Bottom tab bar — hidden on desktop, shown on mobile */
+  #mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 62px;
+    background: white;
+    border-top: 1px solid var(--border);
+    z-index: 1000;
+    padding: 0 4px;
+    padding-bottom: env(safe-area-inset-bottom, 0px); /* iPhone notch */
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+    align-items: stretch;
+    justify-content: space-around;
+  }
+
+  .mobile-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    flex: 1;
+    padding: 8px 4px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 500;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.15s;
+    border-radius: 8px;
+  }
+
+  .mobile-tab .tab-icon { font-size: 20px; line-height: 1; }
+  .mobile-tab.active { color: var(--accent); }
+  .mobile-tab:active { background: var(--surface2); }
+
+  /* More button for extra pages */
+  #mobile-more-menu {
+    display: none;
+    position: fixed;
+    bottom: 70px;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid var(--border);
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+    z-index: 999;
+    padding: 12px 0 24px;
+  }
+  #mobile-more-menu.open { display: block; }
+  .more-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .more-menu-item:active { background: var(--surface2); }
+  .more-menu-item .icon { font-size: 20px; width: 28px; text-align: center; }
 
   .lkr { font-size: 0.75em; opacity: 0.7; }
 
@@ -573,28 +676,31 @@
   }
 
   .delete-btn { opacity: 0; transition: opacity 0.15s; }
-  .txn-item:hover .delete-btn, .bill-item:hover .delete-btn { opacity: 1; }
+  .txn-item:hover .delete-btn, .bill-item:hover .delete-btn, .upcoming-item:hover .delete-btn { opacity: 1; }
+  @media (hover: none) {
+    .delete-btn { opacity: 1; } /* always visible on touch devices */
+  }
 </style>
 </head>
 <body>
 
 <!-- LOGIN SCREEN -->
-<div id="login-screen" style="position:fixed;inset:0;background:#F7F6F3;z-index:99999;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;display:none">
+<div id="login-screen" style="position:fixed;inset:0;background:#F7F6F3;z-index:99999;align-items:center;justify-content:center;font-family:DM Sans,sans-serif;display:none">
   <div style="background:white;border:1px solid #E5E3DC;border-radius:16px;padding:40px 36px;width:360px;max-width:90vw;box-shadow:0 8px 40px rgba(0,0,0,0.08)">
     <div style="text-align:center;margin-bottom:28px">
-      <div style="font-family:'DM Serif Display',serif;font-size:32px;letter-spacing:-1px;margin-bottom:4px">◈ Ledger</div>
+      <div style="font-family:DM Serif Display,serif;font-size:32px;letter-spacing:-1px;margin-bottom:4px">◈ Ledger</div>
       <div style="font-size:13px;color:#7A7870">Personal Finance — Private</div>
     </div>
     <div id="login-error" style="display:none;background:#FDF0F0;border:1px solid #f0c0c0;color:#D94040;padding:9px 12px;border-radius:8px;font-size:13px;margin-bottom:16px;text-align:center"></div>
     <div style="margin-bottom:14px">
       <label style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:#7A7870;display:block;margin-bottom:5px">Username</label>
-      <input id="login-user" type="text" autocomplete="username" style="width:100%;padding:10px 13px;border:1px solid #E5E3DC;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;box-sizing:border-box" placeholder="Enter username" onkeydown="if(event.key==='Enter')document.getElementById('login-pass').focus()">
+      <input id="login-user" type="text" autocomplete="username" style="width:100%;padding:10px 13px;border:1px solid #E5E3DC;border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;outline:none;box-sizing:border-box" placeholder="Enter username" onkeydown="if(event.key==='Enter')document.getElementById('login-pass').focus()">
     </div>
     <div style="margin-bottom:20px">
       <label style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:#7A7870;display:block;margin-bottom:5px">Password</label>
-      <input id="login-pass" type="password" autocomplete="current-password" style="width:100%;padding:10px 13px;border:1px solid #E5E3DC;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;box-sizing:border-box" placeholder="Enter password" onkeydown="if(event.key==='Enter')attemptLogin()">
+      <input id="login-pass" type="password" autocomplete="current-password" style="width:100%;padding:10px 13px;border:1px solid #E5E3DC;border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;outline:none;box-sizing:border-box" placeholder="Enter password" onkeydown="if(event.key==='Enter')attemptLogin()">
     </div>
-    <button onclick="attemptLogin()" style="width:100%;background:#2D5BE3;color:white;border:none;padding:12px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.2px">Sign In</button>
+    <button onclick="attemptLogin()" style="width:100%;background:#2D5BE3;color:white;border:none;padding:12px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;font-family:DM Sans,sans-serif;letter-spacing:0.2px">Sign In</button>
     <div style="text-align:center;margin-top:16px;font-size:11.5px;color:#7A7870">Your data never leaves this device</div>
   </div>
 </div>
@@ -662,6 +768,9 @@
     <div class="sidebar-footer">
       <div class="sidebar-balance">Current Balance</div>
       <div class="sidebar-balance-amount" id="sidebar-balance">LKR 0</div>
+      <button onclick="signOut()" style="margin-top:12px;width:100%;background:none;border:1px solid var(--border);color:var(--text-muted);padding:7px 10px;border-radius:8px;font-size:12px;cursor:pointer;font-family:DM Sans,sans-serif;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.15s" onmouseover="this.style.borderColor='var(--danger)';this.style.color='var(--danger)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">
+        <span>⎋</span><span>Sign Out</span>
+      </button>
     </div>
   </nav>
 
@@ -1482,7 +1591,27 @@ function navTo(pageId) {
   navItems.forEach(n => n.classList.remove('active'));
   document.getElementById('page-' + pageId)?.classList.add('active');
   document.querySelector(`.nav-item[data-page="${pageId}"]`)?.classList.add('active');
+  // Sync mobile bottom tabs
+  document.querySelectorAll('.mobile-tab').forEach(t => t.classList.remove('active'));
+  const mobileTab = document.querySelector(`.mobile-tab[data-page="${pageId}"]`);
+  if (mobileTab) mobileTab.classList.add('active');
+  else document.getElementById('mobile-more-btn')?.classList.add('active');
   renderPage(pageId);
+  window.scrollTo(0, 0);
+}
+
+function toggleMobileMore() {
+  const menu = document.getElementById('mobile-more-menu');
+  const overlay = document.getElementById('mobile-more-overlay');
+  const isOpen = menu.classList.contains('open');
+  if (isOpen) { menu.classList.remove('open'); overlay.style.display = 'none'; }
+  else { menu.classList.add('open'); overlay.style.display = 'block'; }
+}
+
+function closeMobileMore() {
+  document.getElementById('mobile-more-menu')?.classList.remove('open');
+  const ov = document.getElementById('mobile-more-overlay');
+  if (ov) ov.style.display = 'none';
 }
 
 navItems.forEach(item => {
@@ -1620,10 +1749,10 @@ function renderDashboard() {
       return `<div style="margin-bottom:12px">
         <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:500;margin-bottom:4px">
           <span>${g.emoji||'🎯'} ${g.name}</span>
-          <span style="font-family:'DM Mono',monospace;font-size:12px">${Math.round(pct)}%</span>
+          <span style="font-family:DM Mono,monospace;font-size:12px">${Math.round(pct)}%</span>
         </div>
         <div class="progress-bar"><div class="progress-fill ${pct>=100?'':'cat-fill-savings'}" style="width:${pct}%;background:${pct>=100?'var(--success)':''};${pct<100?'background:var(--gold)':''}"></div></div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:3px;font-family:'DM Mono',monospace">${fmt(g.current)} / ${fmt(g.target)}</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:3px;font-family:DM Mono,monospace">${fmt(g.current)} / ${fmt(g.target)}</div>
       </div>`;
     }).join('');
   }
@@ -1680,20 +1809,18 @@ function buildMergedUpcoming() {
     recurring.forEach(r => {
       const dueDate = new Date(y, mo, Math.min(r.day, new Date(y, mo+1, 0).getDate()));
 
-      // For past months: only show if the item existed before the due date
-      // createdAt stored on item — if missing (legacy default items), treat as created now
-      // meaning default seed items will NOT generate historical overdues
-      if (mOffset < 0) {
-        const createdAt = r.createdAt || Date.now();
-        // Skip if item was created after this month's due date
-        if (createdAt > dueDate.getTime()) return;
-        // Skip if the due date is in the future relative to creation (shouldn't happen for mOffset<0)
-        if (dueDate > todayMidnight) return;
+      const createdAt = r.createdAt || Date.now();
+
+      // For past/current month instances: only show if item existed before the due date
+      // This prevents newly-added items from generating fake overdue entries
+      if (mOffset <= 0) {
+        if (createdAt > dueDate.getTime()) return; // item didn't exist when this was due
+        if (dueDate > todayMidnight) return;        // due date hasn't passed yet (future in current month)
       }
 
       const paid = isRecurringPaid(r.id, y, mo);
       // Skip paid past instances
-      if (mOffset < 0 && paid) return;
+      if (mOffset <= 0 && paid) return;
 
       items.push({
         id: r.id + '_' + y + '_' + mo,
@@ -2149,12 +2276,12 @@ function generateRuleBasedPlan(amount) {
     ${allocations.map(a => `
       <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)">
         <div style="font-size:13.5px">${a.label}</div>
-        <div style="font-family:'DM Mono',monospace;font-weight:600;color:${colors[a.type]}">${fmt(a.amount)}</div>
+        <div style="font-family:DM Mono,monospace;font-weight:600;color:${colors[a.type]}">${fmt(a.amount)}</div>
       </div>
     `).join('')}
     <div style="display:flex;justify-content:space-between;padding-top:10px;font-weight:600;font-size:13.5px">
       <span>Total</span>
-      <span style="font-family:'DM Mono',monospace">${fmt(amount)}</span>
+      <span style="font-family:DM Mono,monospace">${fmt(amount)}</span>
     </div>
     <div style="margin-top:12px;font-size:12px;color:var(--text-muted);background:var(--surface2);padding:10px 12px;border-radius:8px">
       💡 Set your API key in Settings to get AI-powered personalized plans with smarter analysis.
@@ -2182,7 +2309,7 @@ function renderDebts() {
   summaryEl.innerHTML = debts.length > 0 ? `
     <div class="card" style="display:inline-block;padding:14px 20px">
       <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);margin-bottom:4px">Total ${debtTab === 'owe' ? 'Owed' : 'To Receive'}</div>
-      <div style="font-family:'DM Serif Display',serif;font-size:26px;color:${debtTab==='owe'?'var(--danger)':'var(--success)'}">${fmt(total)}</div>
+      <div style="font-family:DM Serif Display,serif;font-size:26px;color:${debtTab==='owe'?'var(--danger)':'var(--success)'}">${fmt(total)}</div>
     </div>
   ` : '';
 
@@ -2371,7 +2498,7 @@ function renderBills() {
         ${b.aiAdvice ? `<div style="font-size:12px;margin-top:6px;padding:8px 10px;background:var(--warning-light);border-left:3px solid var(--warning);border-radius:5px;color:var(--text)">${b.aiAdvice}</div>` : ''}
       </div>
       <div style="text-align:right;min-width:90px;flex-shrink:0">
-        <div style="font-family:'DM Mono',monospace;font-weight:600;color:var(--danger);font-size:15px">${fmt(b.amount)}</div>
+        <div style="font-family:DM Mono,monospace;font-weight:600;color:var(--danger);font-size:15px">${fmt(b.amount)}</div>
         <button class="btn-icon btn-sm delete-btn" onclick="deleteBill('${b.id}')" style="margin-top:6px">✕</button>
       </div>
     </div>
@@ -2705,7 +2832,7 @@ function renderUpcoming() {
       const isOverdue     = !paidThisMonth && dueThisMonth < now;
 
       return `<div class="upcoming-item" style="${isOverdue ? 'background:var(--danger-light);border-radius:7px;padding:6px 10px;margin-bottom:4px' : ''}">
-        <div style="min-width:60px;font-size:11.5px;font-family:'DM Mono',monospace;color:${isOverdue ? 'var(--danger)' : 'var(--text-muted)'}">
+        <div style="min-width:60px;font-size:11.5px;font-family:DM Mono,monospace;color:${isOverdue ? 'var(--danger)' : 'var(--text-muted)'}">
           ${isOverdue ? 'OVERDUE' : 'Day ' + r.day}
         </div>
         <div class="upcoming-label" style="flex:1">${CAT_ICONS[r.category]||'📅'} ${r.name}</div>
@@ -2847,7 +2974,7 @@ function generateHealthScore(income, expenses, txns) {
 
   return `
     <div style="text-align:center;padding:16px 0">
-      <div style="font-family:'DM Serif Display',serif;font-size:52px;color:${color};line-height:1">${score}</div>
+      <div style="font-family:DM Serif Display,serif;font-size:52px;color:${color};line-height:1">${score}</div>
       <div style="font-size:14px;font-weight:600;color:${color};margin:4px 0 12px">${label}</div>
       <div class="progress-bar" style="height:10px;max-width:200px;margin:0 auto">
         <div class="progress-fill" style="width:${score}%;background:${color}"></div>
@@ -3197,7 +3324,7 @@ Give a spending allocation plan. Format each line as: <div class="plan-item"><sp
 Total must equal LKR${amount}. One harsh sentence at end if warranted.`,
       maxTokens: 400
     });
-    return `<div style="font-size:13.5px;line-height:1.7">${text}</div><style>.plan-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}.plan-item strong{font-family:'DM Mono',monospace;color:var(--accent)}</style>`;
+    return `<div style="font-size:13.5px;line-height:1.7">${text}</div><style>.plan-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}.plan-item strong{font-family:DM Mono,monospace;color:var(--accent)}</style>`;
   } catch(e) {}
 
   return generateRuleBasedPlan(amount);
@@ -3251,93 +3378,303 @@ function updateApiKeyStatus() {
   if (provSel && provSel.value !== provider) provSel.value = provider;
 }
 
-async function generateReviewWithAI() {
-  const s = DB.get('settings') || {};
-  const hasKey = s.provider === 'gemini' ? s.geminiKey : s.apiKey;
-  const outEl = document.getElementById('review-ai-output');
 
-  if (!hasKey) {
-    outEl.innerHTML = '<div class="advice-panel warning"><div class="advice-title">API Key Required</div><div class="advice-body">Set your API key in Settings.</div></div>';
-    return;
-  }
+// ============================================================
+// BANK SAVINGS TRACKER
+// ============================================================
+function addBankEntry() {
+  const amount = parseFloat(document.getElementById('bank-balance-amount').value);
+  const date   = document.getElementById('bank-balance-date').value;
+  const account= document.getElementById('bank-balance-account').value.trim() || 'Main';
+  const notes  = document.getElementById('bank-balance-notes').value.trim();
+  if (!amount || !date) { toast('Enter amount and date', 'error'); return; }
+  DB.push('bankEntries', { id: uid(), amount, date, account, notes, createdAt: Date.now() });
+  ['bank-balance-amount','bank-balance-notes','bank-balance-account'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
+  closeModal('modal-add-bank-entry');
+  toast('Balance logged', 'success');
+  renderSavings();
+}
 
-  const sel = document.getElementById('review-month-sel');
-  const month = sel?.value || getReviewMonths()[0];
-  if (!month) return;
+function deleteBankEntry(id) {
+  DB.remove('bankEntries', id);
+  toast('Entry deleted');
+  renderSavings();
+}
 
-  outEl.innerHTML = '<div class="card"><div style="text-align:center;padding:24px;color:var(--text-muted)"><div class="spinner" style="width:28px;height:28px;border-width:3px;border-color:rgba(0,0,0,0.1);border-top-color:var(--accent);margin:0 auto 12px"></div>Generating review & updating history summary...</div></div>';
+function renderSavings() {
+  const entries = (DB.get('bankEntries') || []).sort((a,b) => new Date(a.date) - new Date(b.date));
+  const latest  = entries[entries.length - 1];
+  const now     = new Date();
 
-  const [y, mo] = month.split('-').map(Number);
-  const allTxns = DB.get('transactions') || [];
-  const monthTxns = allTxns.filter(t => {
-    const d = new Date(t.date);
-    return d.getFullYear() === y && d.getMonth() === mo-1;
+  const thisMonth = entries.filter(e => {
+    const d = new Date(e.date + 'T00:00:00');
+    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  });
+  const prevMonth = entries.filter(e => {
+    const d = new Date(e.date + 'T00:00:00');
+    const pm = (now.getMonth() - 1 + 12) % 12;
+    const py = now.getMonth() === 0 ? now.getFullYear() - 1 : now.getFullYear();
+    return d.getMonth() === pm && d.getFullYear() === py;
   });
 
-  const monthLabel = new Date(y, mo-1).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
-  const income  = monthTxns.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
-  const expenses= monthTxns.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
-  const byCategory = {};
-  monthTxns.filter(t=>t.type==='expense').forEach(t=>{ byCategory[t.category]=(byCategory[t.category]||0)+t.amount; });
+  // Stats
+  const curEl = document.getElementById('savings-current-balance');
+  const updEl = document.getElementById('savings-last-updated');
+  const thisEl= document.getElementById('savings-this-month');
+  const totEl = document.getElementById('savings-total-deposited');
+  if (curEl) curEl.textContent = latest ? fmt(latest.amount) : 'LKR 0';
+  if (updEl) updEl.textContent = latest ? 'Updated ' + fmtDate(latest.date) + ' · ' + (latest.account || 'Main') : 'Not yet logged';
 
-  // Get existing recursive summary
-  const prevSummary = DB.get('monthlySummary') || null;
+  const thisMonthSaved = thisMonth.length >= 2
+    ? thisMonth[thisMonth.length-1].amount - thisMonth[0].amount
+    : (thisMonth.length === 1 && prevMonth.length > 0 ? thisMonth[0].amount - prevMonth[prevMonth.length-1].amount : 0);
 
-  // Build a compact month data string for the prompt (~200 tokens)
-  const monthData = `${monthLabel}: income=LKR${income.toFixed(0)}, expenses=LKR${expenses.toFixed(0)}, saved=LKR${(income-expenses).toFixed(0)}, top spend=${JSON.stringify(byCategory)}`;
+  if (thisEl) {
+    thisEl.textContent = fmt(Math.abs(thisMonthSaved));
+    thisEl.style.color = thisMonthSaved >= 0 ? 'var(--success)' : 'var(--danger)';
+  }
 
-  try {
-    // STEP 1: Generate the review using lean context + previous summary
-    const reviewPrompt = `Monthly review for ${monthLabel}.
-This month: ${monthData}
-${prevSummary ? 'Previous months summary: ' + prevSummary : ''}
+  const totalDeposited = entries.reduce((sum, e, i) => {
+    if (i === 0) return 0;
+    const diff = e.amount - entries[i-1].amount;
+    return sum + (diff > 0 ? diff : 0);
+  }, 0);
+  if (totEl) totEl.textContent = fmt(totalDeposited);
 
-Give:
-1. One-paragraph honest verdict
-2. Top 3 changes for next month with LKR targets
-3. One thing done right
-4. Savings target for next month
-Be specific with actual numbers.`;
+  // Sparkline chart
+  const chartEl = document.getElementById('savings-chart');
+  if (chartEl) {
+    if (entries.length < 2) {
+      chartEl.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📈</div><div class="empty-state-text">Log at least 2 entries to see your trend</div></div>';
+    } else {
+      const max = Math.max(...entries.map(e => e.amount));
+      const min = Math.min(...entries.map(e => e.amount));
+      const range = max - min || 1;
+      const w = 100 / (entries.length - 1);
+      const points = entries.map((e, i) => {
+        const x = i * w;
+        const y = 100 - ((e.amount - min) / range * 80 + 10);
+        return x + ',' + y;
+      }).join(' ');
+      chartEl.innerHTML = '<svg viewBox="0 0 100 100" preserveAspectRatio="none" style="width:100%;height:120px;display:block">' +
+        '<defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2A7D4F" stop-opacity="0.2"/><stop offset="100%" stop-color="#2A7D4F" stop-opacity="0"/></linearGradient></defs>' +
+        '<polyline points="' + points + '" fill="none" stroke="var(--success)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>' +
+        '<polygon points="0,100 ' + points + ' 100,100" fill="url(#sg)"/></svg>' +
+        '<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);font-family:DM Mono,monospace;margin-top:4px">' +
+        '<span>' + fmtDate(entries[0].date) + '</span>' +
+        '<span style="color:var(--success);font-weight:600">' + fmt(latest.amount) + '</span>' +
+        '<span>' + fmtDate(entries[entries.length-1].date) + '</span></div>';
+    }
+  }
 
-    const reviewText = await callAI({
-      systemPrompt: buildLeanContext('review'),
-      userMessage: reviewPrompt,
-      maxTokens: 700
-    });
-
-    // STEP 2: Update the recursive summary — compress old summary + this month into new summary
-    // This is a separate cheap call (~200 token output max)
-    const summaryPrompt = `You are compressing financial history into a running summary.
-${prevSummary ? 'Existing summary of all previous months:\n' + prevSummary + '\n\n' : ''}New month to add: ${monthData}
-Review verdict: ${reviewText.slice(0, 300)}...
-
-Write an updated compressed summary covering ALL months (old + new). Max 200 words. Focus on: spending patterns, savings trend, recurring issues, progress on goals. Be terse.`;
-
-    const newSummary = await callAI({
-      systemPrompt: 'You compress financial history into terse summaries. Output only the summary, no preamble.',
-      userMessage: summaryPrompt,
-      maxTokens: 250
-    });
-
-    // Save the new recursive summary
-    DB.set('monthlySummary', newSummary);
-    DB.set('lastReviewedMonth', month);
-
-    outEl.innerHTML = `<div class="card">
-      <div class="card-title">AI Deep Review — ${monthLabel}</div>
-      <div style="font-size:13.5px;line-height:1.8;white-space:pre-wrap;margin-bottom:16px">${reviewText}</div>
-      <details style="border-top:1px solid var(--border);padding-top:12px">
-        <summary style="font-size:12px;color:var(--text-muted);cursor:pointer;user-select:none">📚 History Summary (attached to all future AI requests)</summary>
-        <div style="font-size:12px;margin-top:8px;padding:10px;background:var(--surface2);border-radius:7px;line-height:1.6;color:var(--text-muted)">${newSummary}</div>
-      </details>
-    </div>`;
-
-  } catch(e) {
-    outEl.innerHTML = `<div class="advice-panel roast"><div class="advice-body">Review failed: ${e.message}</div></div>`;
+  // Log list
+  const logEl = document.getElementById('savings-log-list');
+  if (logEl) {
+    if (entries.length === 0) {
+      logEl.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🏦</div><div class="empty-state-text">No entries yet. Log your current bank balance to start tracking.</div></div>';
+    } else {
+      const reversed = entries.slice().reverse();
+      logEl.innerHTML = reversed.map((e, i) => {
+        const prev = reversed[i + 1];
+        const diff = prev ? e.amount - prev.amount : null;
+        return '<div class="txn-item">' +
+          '<div class="txn-icon" style="font-size:13px;background:var(--surface2);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center">🏦</div>' +
+          '<div class="txn-info"><div class="txn-name">' + (e.account || 'Main') + '</div>' +
+          '<div class="txn-meta">' + fmtDate(e.date) + (e.notes ? ' · ' + e.notes : '') + '</div></div>' +
+          '<div style="text-align:right"><div style="font-family:DM Mono,monospace;font-weight:600">' + fmt(e.amount) + '</div>' +
+          (diff !== null ? '<div style="font-size:11px;color:' + (diff>=0?'var(--success)':'var(--danger)') + ';font-family:DM Mono,monospace">' + (diff>=0?'+':'') + fmt(diff) + '</div>' : '') +
+          '</div>' +
+          '<button class="btn-icon btn-sm delete-btn" onclick="deleteBankEntry(\'' + e.id + '\')">✕</button>' +
+          '</div>';
+      }).join('');
+    }
   }
 }
 
-// Auto monthly review check — runs on load, triggers if new month started
+// ============================================================
+// MONTHLY REVIEW ENGINE
+// ============================================================
+function getReviewMonths() {
+  const txns = DB.get('transactions') || [];
+  const months = new Set();
+  txns.forEach(t => {
+    const d = new Date(t.date + 'T00:00:00');
+    months.add(d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0'));
+  });
+  const now = new Date();
+  months.add(now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0'));
+  return [...months].sort().reverse();
+}
+
+function renderReview() {
+  const sel    = document.getElementById('review-month-sel');
+  const months = getReviewMonths();
+
+  if (sel && sel.options.length !== months.length) {
+    sel.innerHTML = months.map(m => {
+      const [y, mo] = m.split('-');
+      const label = new Date(parseInt(y), parseInt(mo)-1, 1).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+      return '<option value="' + m + '">' + label + '</option>';
+    }).join('');
+  }
+
+  const selectedMonth = sel ? sel.value : (months[0] || '');
+  if (!selectedMonth) {
+    document.getElementById('review-content').innerHTML = '<div class="empty-state"><div class="empty-state-icon">📋</div><div class="empty-state-text">No transaction data yet.</div></div>';
+    return;
+  }
+
+  const [y, mo] = selectedMonth.split('-').map(Number);
+  const allTxns   = DB.get('transactions') || [];
+  const monthTxns = allTxns.filter(t => {
+    const d = new Date(t.date + 'T00:00:00');
+    return d.getFullYear() === y && d.getMonth() === mo-1;
+  });
+
+  const income   = monthTxns.filter(t => t.type==='income').reduce((s,t) => s+t.amount, 0);
+  const expenses = monthTxns.filter(t => t.type==='expense').reduce((s,t) => s+t.amount, 0);
+  const savings  = income - expenses;
+  const savingsRate = income > 0 ? (savings/income*100).toFixed(1) : 0;
+  const byCategory  = {};
+  monthTxns.filter(t => t.type==='expense').forEach(t => { byCategory[t.category] = (byCategory[t.category]||0) + t.amount; });
+
+  const budget    = DB.get('budget') || {};
+  const topCats   = Object.entries(byCategory).sort((a,b) => b[1]-a[1]);
+  const suggestions = generateBudgetSuggestions(byCategory, income, budget, selectedMonth, allTxns);
+  const isCurrentMonth = (new Date().getFullYear()===y && new Date().getMonth()===mo-1);
+
+  document.getElementById('review-content').innerHTML =
+    '<div class="grid-4" style="margin-bottom:16px">' +
+      '<div class="card"><div class="card-title">Income</div><div class="stat-value" style="color:var(--success)">' + fmt(income) + '</div></div>' +
+      '<div class="card"><div class="card-title">Expenses</div><div class="stat-value" style="color:var(--danger)">' + fmt(expenses) + '</div></div>' +
+      '<div class="card"><div class="card-title">Net</div><div class="stat-value" style="color:' + (savings>=0?'var(--success)':'var(--danger)') + '">' + fmt(savings) + '</div></div>' +
+      '<div class="card"><div class="card-title">Savings Rate</div><div class="stat-value">' + savingsRate + '%</div></div>' +
+    '</div>' +
+    '<div class="grid-2" style="margin-bottom:16px">' +
+      '<div class="card"><div class="card-title">Spending Breakdown</div>' +
+        (topCats.length === 0 ? '<div class="empty-state"><div class="empty-state-icon">◧</div><div class="empty-state-text">No expenses this period</div></div>' :
+        '<div class="chart-bar-wrap">' + topCats.map(([cat, amt]) => {
+          const limit = budget[cat] || 0;
+          const over  = limit && amt > limit;
+          return '<div class="chart-bar-item">' +
+            '<div class="chart-bar-label">' + (CAT_ICONS[cat]||'📦') + ' ' + cat + '</div>' +
+            '<div class="chart-bar-track"><div class="chart-bar-fill ' + (CAT_FILLS[cat]||'cat-fill-other') + '" style="width:' + (limit?Math.min(100,amt/limit*100):100) + '%;' + (over?'background:var(--danger)':'') + '"></div></div>' +
+            '<div class="chart-bar-val" style="' + (over?'color:var(--danger)':'') + '">' + fmt(amt) + '</div></div>';
+        }).join('') + '</div>') +
+      '</div>' +
+      '<div class="card"><div class="card-title">Budget vs Actual</div>' +
+        (topCats.length === 0 ? '<div class="empty-state"><div class="empty-state-icon">◧</div><div class="empty-state-text">No data</div></div>' :
+        '<div style="font-size:13px">' + topCats.map(([cat, amt]) => {
+          const limit = budget[cat] || 0;
+          if (!limit) return '<div style="padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between"><span>' + (CAT_ICONS[cat]||'') + ' ' + cat + '</span><span style="font-family:DM Mono,monospace">' + fmt(amt) + ' <span style="color:var(--text-muted)">(no limit)</span></span></div>';
+          const diff = amt - limit;
+          const over = diff > 0;
+          return '<div style="padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between"><span>' + (CAT_ICONS[cat]||'') + ' ' + cat + '</span><span style="font-family:DM Mono,monospace;color:' + (over?'var(--danger)':'var(--success)') + '">' + (over?'▲ over by ':'▼ under by ') + fmt(Math.abs(diff)) + '</span></div>';
+        }).join('') + '</div>') +
+      '</div>' +
+    '</div>' +
+    '<div class="grid-2">' +
+      '<div class="card"><div class="card-title" style="display:flex;justify-content:space-between;align-items:center"><span>Suggested Budget for Next Month</span>' +
+        (suggestions.canApply ? '<button class="btn btn-primary btn-sm" onclick="applyBudgetSuggestions(' + JSON.stringify(suggestions.values).replace(/"/g, '&quot;') + ')">Apply →</button>' : '') +
+      '</div>' +
+      '<div id="review-suggestions">' +
+        suggestions.rows.map(s =>
+          '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">' +
+          '<span style="font-size:16px;width:24px">' + (CAT_ICONS[s.cat]||'📦') + '</span>' +
+          '<span style="flex:1;font-size:13px">' + s.cat + '</span>' +
+          '<span style="font-family:DM Mono,monospace;font-size:12px;color:var(--text-muted);text-decoration:line-through">' + (s.old ? fmt(s.old) : '—') + '</span>' +
+          '<span style="font-family:DM Mono,monospace;font-size:13px;font-weight:600;color:' + (s.direction==='up'?'var(--danger)':s.direction==='down'?'var(--success)':'var(--text)') + '">' + fmt(s.new) + '</span>' +
+          '<span style="font-size:11px">' + (s.direction==='up'?'↑':s.direction==='down'?'↓':'=') + '</span></div>'
+        ).join('') +
+        '<div style="font-size:12px;color:var(--text-muted);margin-top:10px;padding:8px 10px;background:var(--surface2);border-radius:7px">' + suggestions.summary + '</div>' +
+      '</div></div>' +
+      '<div class="card"><div class="card-title">Key Observations</div>' +
+        '<div style="display:flex;flex-direction:column;gap:8px">' +
+        generateMonthObservations(income, expenses, byCategory, budget, savingsRate, isCurrentMonth).map(o =>
+          '<div style="padding:9px 12px;border-radius:8px;font-size:13px;line-height:1.5;' +
+          (o.type==='bad'?'background:var(--danger-light);border-left:3px solid var(--danger)':o.type==='good'?'background:var(--success-light);border-left:3px solid var(--success)':'background:var(--accent-light);border-left:3px solid var(--accent)') +
+          '">' + o.text + '</div>'
+        ).join('') +
+        '</div></div>' +
+    '</div>' +
+    '<div id="review-ai-output" style="margin-top:16px"></div>';
+}
+
+function generateBudgetSuggestions(byCategory, income, currentBudget, month, allTxns) {
+  const [y, mo] = month.split('-').map(Number);
+  const monthsData = [];
+  for (let i = 0; i < 3; i++) {
+    const mIdx = ((mo - 1 - i) + 12) % 12;
+    const yr   = (mo - 1 - i < 0) ? y - 1 : y;
+    const mTxns = allTxns.filter(t => {
+      const d = new Date(t.date + 'T00:00:00');
+      return d.getFullYear() === yr && d.getMonth() === mIdx && t.type === 'expense';
+    });
+    if (mTxns.length > 0) monthsData.push(mTxns);
+  }
+
+  const allCats = new Set([...Object.keys(byCategory), ...Object.keys(currentBudget)]);
+  const rows = [];
+  const newValues = {};
+
+  allCats.forEach(cat => {
+    if (cat === 'Income') return;
+    const historicalAmounts = monthsData.map(m => m.filter(t => t.category === cat).reduce((s,t) => s+t.amount, 0));
+    const avg = historicalAmounts.length > 0 ? historicalAmounts.reduce((a,b)=>a+b,0) / historicalAmounts.length : (byCategory[cat]||0);
+    const currentLimit = currentBudget[cat] || 0;
+    let suggested = Math.ceil((avg * 1.1) / 500) * 500;
+    if (suggested < 500 && avg > 0) suggested = 500;
+    if (avg === 0 && currentLimit === 0) return;
+    newValues[cat] = suggested;
+    const direction = suggested > currentLimit ? 'up' : suggested < currentLimit ? 'down' : 'same';
+    rows.push({ cat, old: currentLimit || null, new: suggested, direction });
+  });
+
+  const totalSuggested = Object.values(newValues).reduce((a,b)=>a+b, 0);
+  const summary = monthsData.length >= 2
+    ? 'Based on ' + monthsData.length + '-month average. Total suggested: ' + fmt(totalSuggested) + (income > 0 ? ' (' + (totalSuggested/income*100).toFixed(0) + '% of typical income).' : '.')
+    : 'Only 1 month of data — suggestions improve as you log more months.';
+
+  return { rows: rows.sort((a,b) => (b.new||0)-(a.new||0)), values: newValues, canApply: rows.length > 0, summary };
+}
+
+function applyBudgetSuggestions(newValues) {
+  if (!confirm('Apply these suggested budget limits?')) return;
+  const budget = DB.get('budget') || {};
+  Object.assign(budget, newValues);
+  DB.set('budget', budget);
+  toast('Budget updated with suggestions!', 'success');
+  renderReview();
+}
+
+function generateMonthObservations(income, expenses, byCategory, budget, savingsRate, isCurrentMonth) {
+  const obs = [];
+  if (income === 0) {
+    obs.push({ type: "bad", text: "⚠️ No income logged this month. Either you forgot to record it, or it was genuinely zero." });
+  } else if (savingsRate > 20) {
+    obs.push({ type: "good", text: "✅ Saved " + savingsRate + "% of income. That's actually respectable. Keep this going." });
+  } else if (savingsRate > 0) {
+    obs.push({ type: "info", text: "📊 Savings rate: " + savingsRate + "%. Target is 20%+. You're below it — review what's eating the gap." });
+  } else {
+    obs.push({ type: "bad", text: "🚨 Spent more than earned (" + savingsRate + "% savings rate). This month was a net loss." });
+  }
+  Object.entries(byCategory).forEach(([cat, spent]) => {
+    const limit = budget[cat];
+    if (limit && spent > limit * 1.2) {
+      obs.push({ type: "bad", text: "🔴 " + cat + " was " + fmt(spent - limit) + " over budget (" + Math.round(spent/limit*100) + "% of limit)." });
+    }
+  });
+  const giftSpend = (byCategory["Gifts"]||0) + (byCategory["Dates"]||0);
+  if (income > 0 && giftSpend > income * 0.2) {
+    obs.push({ type: "bad", text: "💕 You spent " + fmt(giftSpend) + " on Gifts/Dates — " + (giftSpend/income*100).toFixed(0) + "% of income. High for someone still in school." });
+  }
+  if (income > 500 && !(byCategory["Savings"])) {
+    obs.push({ type: "info", text: "💰 No savings transactions logged this month. Even LKR 500 put away builds the habit." });
+  }
+  if (obs.length === 0) obs.push({ type: "info", text: "📋 Not enough data to generate observations for this month." });
+  return obs;
+}
+
 function checkAutoReview() {
   const lastReview = DB.get('lastAutoReview');
   const now = new Date();
@@ -3556,7 +3893,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div style="font-weight:600;font-size:13.5px">Install Ledger</div>
     <div style="font-size:12px;opacity:0.7">Add to home screen for offline access</div>
   </div>
-  <button id="install-btn" style="background:var(--accent);color:white;border:none;padding:7px 14px;border-radius:7px;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif">Install</button>
+  <button id="install-btn" style="background:var(--accent);color:white;border:none;padding:7px 14px;border-radius:7px;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:DM Sans,sans-serif">Install</button>
   <button onclick="document.getElementById('install-banner').style.display='none'" style="background:none;border:none;color:white;opacity:0.6;cursor:pointer;font-size:18px;padding:0 4px">&#x2715;</button>
 </div>
 
@@ -3603,6 +3940,45 @@ window.addEventListener('appinstalled', () => {
   _installPrompt = null;
 });
 </script>
+
+
+<!-- MOBILE BOTTOM NAV -->
+<nav id="mobile-nav">
+  <button class="mobile-tab active" data-page="dashboard" onclick="navTo('dashboard')">
+    <span class="tab-icon">◈</span><span>Home</span>
+  </button>
+  <button class="mobile-tab" data-page="transactions" onclick="navTo('transactions')">
+    <span class="tab-icon">⇅</span><span>Transactions</span>
+  </button>
+  <button class="mobile-tab" data-page="upcoming" onclick="navTo('upcoming')">
+    <span class="tab-icon">◷</span><span>Upcoming</span>
+  </button>
+  <button class="mobile-tab" data-page="advisor" onclick="navTo('advisor')">
+    <span class="tab-icon">◎</span><span>Advisor</span>
+  </button>
+  <button class="mobile-tab" id="mobile-more-btn" onclick="toggleMobileMore()">
+    <span class="tab-icon">⋯</span><span>More</span>
+  </button>
+</nav>
+
+<!-- MOBILE MORE MENU (slides up) -->
+<div id="mobile-more-menu">
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 24px 10px;border-bottom:1px solid var(--border)">
+    <span style="font-size:13px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">More Pages</span>
+    <button onclick="closeMobileMore()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-muted);padding:0">✕</button>
+  </div>
+  <div class="more-menu-item" onclick="navTo('budget');closeMobileMore()"><span class="icon">◧</span>Budget</div>
+  <div class="more-menu-item" onclick="navTo('income');closeMobileMore()"><span class="icon">↑</span>Income Plan</div>
+  <div class="more-menu-item" onclick="navTo('bills');closeMobileMore()"><span class="icon">▤</span>Bill Book</div>
+  <div class="more-menu-item" onclick="navTo('debts');closeMobileMore()"><span class="icon">⊖</span>Debts</div>
+  <div class="more-menu-item" onclick="navTo('goals');closeMobileMore()"><span class="icon">◎</span>Goals</div>
+  <div class="more-menu-item" onclick="navTo('reports');closeMobileMore()"><span class="icon">◫</span>Reports</div>
+  <div class="more-menu-item" onclick="navTo('savings');closeMobileMore()"><span class="icon">🏦</span>Bank Savings</div>
+  <div class="more-menu-item" onclick="navTo('review');closeMobileMore()"><span class="icon">📋</span>Monthly Review</div>
+  <div class="more-menu-item" onclick="navTo('settings');closeMobileMore()"><span class="icon">⊙</span>Settings</div>
+  <div class="more-menu-item" onclick="signOut();closeMobileMore()" style="color:var(--danger)"><span class="icon">⎋</span>Sign Out</div>
+</div>
+<div id="mobile-more-overlay" onclick="closeMobileMore()" style="display:none;position:fixed;inset:0;z-index:998;background:rgba(0,0,0,0.3)"></div>
 
 </body>
 </html>
