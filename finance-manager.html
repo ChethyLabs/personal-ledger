@@ -1617,7 +1617,7 @@ function getSB() {
   return _sb;
 }
 
-const SYNC_KEYS = ['transactions','budget','debts','goals','upcoming','recurring','bankEntries','monthlySummary','budgetCustomCats'];
+const SYNC_KEYS = ['transactions','budget','debts','goals','upcoming','recurring','bankEntries','monthlySummary','budgetCustomCats','settings'];
 const AUTH_CLOUD_KEY = 'ledger_auth_creds'; // key used in Supabase for credential sync
 
 const DB = {
@@ -1639,7 +1639,13 @@ const DB = {
     try {
       const s = DB.getRaw('settings') || {};
       const userId = s.supabaseUserId || 'default';
-      await sb.from('ledger_data').upsert({ user_id: userId, key, value: JSON.stringify(value) }, { onConflict: 'user_id,key' });
+      // Strip sensitive keys from settings before pushing to cloud
+      let pushValue = value;
+      if (key === 'settings') {
+        const { apiKey, geminiKey, gcalKey, supabaseKey, ...safeSettings } = value || {};
+        pushValue = safeSettings;
+      }
+      await sb.from('ledger_data').upsert({ user_id: userId, key, value: JSON.stringify(pushValue) }, { onConflict: 'user_id,key' });
     } catch(e) { /* silent — localStorage is source of truth */ }
   },
 
@@ -1654,7 +1660,24 @@ const DB = {
       if (error) throw error;
       if (!data || data.length === 0) return false;
       data.forEach(row => {
-        localStorage.setItem('ledger_' + row.key, row.value);
+        if (row.key === 'settings') {
+          // Merge cloud settings with local — preserve local sensitive keys
+          const cloudSettings = JSON.parse(row.value) || {};
+          const localSettings = DB.getRaw('settings') || {};
+          const merged = {
+            ...cloudSettings,
+            // Always keep local sensitive keys
+            apiKey: localSettings.apiKey || cloudSettings.apiKey || '',
+            geminiKey: localSettings.geminiKey || cloudSettings.geminiKey || '',
+            gcalKey: localSettings.gcalKey || cloudSettings.gcalKey || '',
+            supabaseUrl: localSettings.supabaseUrl || cloudSettings.supabaseUrl || '',
+            supabaseKey: localSettings.supabaseKey || cloudSettings.supabaseKey || '',
+            supabaseUserId: localSettings.supabaseUserId || cloudSettings.supabaseUserId || ''
+          };
+          localStorage.setItem('ledger_settings', JSON.stringify(merged));
+        } else {
+          localStorage.setItem('ledger_' + row.key, row.value);
+        }
       });
       return data.length;
     } catch(e) {
@@ -1873,25 +1896,31 @@ function getMonthlyStats() {
 // DASHBOARD
 // ============================================================
 function renderDashboard() {
+  // Guard: only run if dashboard elements exist in DOM
+  if (!document.getElementById('dash-balance')) return;
+
   const balance = getBalance();
   const { income, spent } = getMonthlyStats();
   const goals = DB.get('goals') || [];
 
   // Greeting
   const h = new Date().getHours();
-  document.getElementById('greeting-time').textContent = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
+  const greetEl = document.getElementById('greeting-time');
+  if (greetEl) greetEl.textContent = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
   const settings = DB.get('settings') || {};
-  if (settings.name) document.querySelector('.page-title').textContent = `Good ${h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening'}, ${settings.name} 👋`;
+  const pageTitleEl = document.querySelector('#page-dashboard .page-title');
+  if (settings.name && pageTitleEl) pageTitleEl.textContent = `Good ${h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening'}, ${settings.name} 👋`;
 
-  document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const todayEl = document.getElementById('today-date');
+  if (todayEl) todayEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
   // Stats
-  document.getElementById('dash-balance').textContent = fmt(balance);
-  document.getElementById('dash-balance').style.color = balance < 0 ? 'var(--danger)' : 'var(--text)';
-  document.getElementById('dash-income').textContent = fmt(income);
-  document.getElementById('dash-spent').textContent = fmt(spent);
-  document.getElementById('dash-goals').textContent = goals.length;
-  document.getElementById('sidebar-balance').textContent = fmt(balance);
+  const dbEl = document.getElementById('dash-balance');
+  if (dbEl) { dbEl.textContent = fmt(balance); dbEl.style.color = balance < 0 ? 'var(--danger)' : 'var(--text)'; }
+  const diEl = document.getElementById('dash-income'); if (diEl) diEl.textContent = fmt(income);
+  const dsEl = document.getElementById('dash-spent');  if (dsEl) dsEl.textContent = fmt(spent);
+  const dgEl = document.getElementById('dash-goals');  if (dgEl) dgEl.textContent = goals.length;
+  const sbEl = document.getElementById('sidebar-balance'); if (sbEl) sbEl.textContent = fmt(balance);
 
   // Recent transactions
   const txns = (DB.get('transactions') || []).slice(-6).reverse();
