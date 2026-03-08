@@ -703,7 +703,17 @@
       <input id="login-pass" type="password" autocomplete="current-password" style="width:100%;padding:10px 13px;border:1px solid #E5E3DC;border-radius:8px;font-size:14px;font-family:DM Sans,sans-serif;outline:none;box-sizing:border-box" placeholder="Enter password" onkeydown="if(event.key==='Enter')attemptLogin()">
     </div>
     <button onclick="attemptLogin()" style="width:100%;background:#2D5BE3;color:white;border:none;padding:12px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;font-family:DM Sans,sans-serif;letter-spacing:0.2px">Sign In</button>
-    <div style="text-align:center;margin-top:16px;font-size:11.5px;color:#7A7870">Your data never leaves this device</div>
+    <div id="login-sync-status" style="display:none;text-align:center;margin-top:10px;font-size:12px;padding:7px;border-radius:7px"></div>
+    <details style="margin-top:16px">
+      <summary style="font-size:12px;color:#7A7870;cursor:pointer;text-align:center;list-style:none;-webkit-appearance:none">☁ New device? Connect to cloud →</summary>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid #E5E3DC">
+        <div style="font-size:11.5px;color:#7A7870;margin-bottom:10px">Enter your Supabase credentials to load your account on this device.</div>
+        <input id="ls-sb-url" type="text" placeholder="https://xxxx.supabase.co" style="width:100%;padding:9px 11px;border:1px solid #E5E3DC;border-radius:7px;font-size:13px;font-family:DM Sans,sans-serif;outline:none;box-sizing:border-box;margin-bottom:8px">
+        <input id="ls-sb-key" type="password" placeholder="Anon key (eyJ...)" style="width:100%;padding:9px 11px;border:1px solid #E5E3DC;border-radius:7px;font-size:13px;font-family:DM Sans,sans-serif;outline:none;box-sizing:border-box;margin-bottom:8px">
+        <input id="ls-sb-uid" type="text" placeholder="Your User ID (e.g. kasun2006)" style="width:100%;padding:9px 11px;border:1px solid #E5E3DC;border-radius:7px;font-size:13px;font-family:DM Sans,sans-serif;outline:none;box-sizing:border-box;margin-bottom:10px">
+        <button onclick="loadAccountFromCloud()" style="width:100%;background:#1a1a1a;color:white;border:none;padding:10px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:DM Sans,sans-serif">Load my account</button>
+      </div>
+    </details>
   </div>
 </div>
 
@@ -1167,7 +1177,12 @@
             </div>
             <div class="form-group">
               <label class="form-label">Supabase Project URL</label>
-              <input type="text" class="form-input" id="setting-supabase-url" placeholder="https://xxxx.supabase.co" oninput="saveSetting('supabaseUrl',this.value.trim());_sb=null">
+              <input type="text" class="form-input" id="setting-supabase-url" placeholder="https://xxxx.supabase.co" oninput="
+  let v=this.value.trim();
+  // Auto-fix: if user pastes dashboard URL, extract the project ref and build API URL
+  const m=v.match(/supabase\.com\/dashboard\/project\/([a-z0-9]+)/);
+  if(m) { v='https://'+m[1]+'.supabase.co'; this.value=v; }
+  saveSetting('supabaseUrl',v);_sb=null;">
             </div>
             <div class="form-group">
               <label class="form-label">Supabase Anon Key</label>
@@ -1588,16 +1603,22 @@
 
 // Supabase client — set up once credentials are saved in settings
 let _sb = null;
+let _sbUrl = null, _sbKey = null;
 function getSB() {
-  if (_sb) return _sb;
   const s = DB.getRaw('settings');
-  if (s?.supabaseUrl && s?.supabaseKey) {
-    _sb = supabase.createClient(s.supabaseUrl, s.supabaseKey);
-  }
+  if (!s?.supabaseUrl || !s?.supabaseKey) return null;
+  // Only create new client if credentials actually changed
+  if (_sb && _sbUrl === s.supabaseUrl && _sbKey === s.supabaseKey) return _sb;
+  _sbUrl = s.supabaseUrl;
+  _sbKey = s.supabaseKey;
+  _sb = supabase.createClient(s.supabaseUrl, s.supabaseKey, {
+    auth: { persistSession: false, autoRefreshToken: false }
+  });
   return _sb;
 }
 
 const SYNC_KEYS = ['transactions','budget','debts','goals','upcoming','recurring','bankEntries','monthlySummary','budgetCustomCats'];
+const AUTH_CLOUD_KEY = 'ledger_auth_creds'; // key used in Supabase for credential sync
 
 const DB = {
   // Always read/write localStorage immediately (fast, offline-first)
@@ -1640,6 +1661,37 @@ const DB = {
       console.warn('Supabase pull failed:', e.message);
       return false;
     }
+  },
+
+  // ── Push credential hashes to cloud (for cross-device login) ──
+  pushCreds: async () => {
+    const sb = getSB();
+    if (!sb) return false;
+    try {
+      const s = DB.getRaw('settings') || {};
+      const userId = s.supabaseUserId || 'default';
+      const userHash = localStorage.getItem('ledger_auth_user');
+      const passHash  = localStorage.getItem('ledger_auth_pass');
+      if (!userHash || !passHash) return false;
+      await sb.from('ledger_data').upsert(
+        { user_id: userId, key: AUTH_CLOUD_KEY, value: JSON.stringify({ userHash, passHash }) },
+        { onConflict: 'user_id,key' }
+      );
+      return true;
+    } catch(e) { return false; }
+  },
+
+  // ── Pull credential hashes from cloud (new device setup) ──
+  pullCreds: async () => {
+    const sb = getSB();
+    if (!sb) return null;
+    try {
+      const s = DB.getRaw('settings') || {};
+      const userId = s.supabaseUserId || 'default';
+      const { data, error } = await sb.from('ledger_data').select('value').eq('user_id', userId).eq('key', AUTH_CLOUD_KEY).single();
+      if (error || !data) return null;
+      return JSON.parse(data.value);
+    } catch(e) { return null; }
   },
 
   // ── Push ALL local data to cloud (initial setup) ──
@@ -2730,6 +2782,22 @@ function showBillConfirmStep(parsed, wasAIParsed) {
   }
 }
 
+
+function checkGoalMatchOnBill(title, notes, amount, category) {
+  // Check if any active savings goal matches this purchase by keyword
+  const goals = DB.get('goals') || [];
+  if (!goals.length) return;
+  const search = (title + ' ' + (notes || '') + ' ' + category).toLowerCase();
+  goals.forEach(g => {
+    if (!g.name) return;
+    const keywords = g.name.toLowerCase().split(/\s+/);
+    const matched = keywords.some(w => w.length > 3 && search.includes(w));
+    if (matched) {
+      toast(`💡 "${g.name}" goal: ${fmt(g.current || 0)} / ${fmt(g.target)} saved`, 'success', 4000);
+    }
+  });
+}
+
 function confirmSaveBill() {
   const title = document.getElementById('bill-title').value.trim();
   const amount = parseFloat(document.getElementById('bill-amount').value);
@@ -3057,11 +3125,19 @@ function generateSpendingInsight(income, expenses, byCategory, txns) {
 // ── Supabase UI helpers ──
 async function testAndPushSupabase() {
   const el = document.getElementById('supabase-status');
+  const s = DB.get('settings') || {};
+  // Warn if URL looks like a dashboard URL not API URL
+  if (s.supabaseUrl && s.supabaseUrl.includes('supabase.com/dashboard')) {
+    el.textContent = '✗ Wrong URL — use your Project URL (https://xxxx.supabase.co), not the dashboard link.';
+    el.style.color = 'var(--danger)';
+    return;
+  }
   el.textContent = 'Pushing...'; el.style.color = 'var(--text-muted)';
   _sb = null; // reset client to pick up new credentials
   const count = await DB.pushAll();
   if (count !== false) {
-    el.textContent = '✓ Pushed ' + count + ' data keys to cloud. Sync active.';
+    await DB.pushCreds(); // also sync login credentials
+    el.textContent = '✓ Pushed ' + count + ' data keys + credentials to cloud.';
     el.style.color = 'var(--success)';
     toast('Synced to cloud!', 'success');
   } else {
@@ -3862,6 +3938,48 @@ function checkAutoReview() {
 // ============================================================
 // AUTH — Login wall (IIFE — showApp/showLogin not accessible from console)
 // ============================================================
+
+// ── Cross-device login: pull credentials + data from Supabase before login ──
+window.loadAccountFromCloud = async function() {
+  const url = document.getElementById('ls-sb-url').value.trim();
+  const key = document.getElementById('ls-sb-key').value.trim();
+  const uid = document.getElementById('ls-sb-uid').value.trim();
+  const statusEl = document.getElementById('login-sync-status');
+
+  if (!url || !key || !uid) {
+    statusEl.textContent = 'Fill in all three fields.';
+    statusEl.style.background = '#FDF0F0'; statusEl.style.color = '#D94040';
+    statusEl.style.display = 'block'; return;
+  }
+
+  statusEl.textContent = 'Connecting...';
+  statusEl.style.background = '#f0f4ff'; statusEl.style.color = '#2D5BE3';
+  statusEl.style.display = 'block';
+
+  // Save Supabase settings so getSB() works
+  const existing = DB.get('settings') || {};
+  DB.set('settings', { ...existing, supabaseUrl: url, supabaseKey: key, supabaseUserId: uid });
+  _sb = null; // reset client
+
+  // Pull credentials from cloud
+  const creds = await DB.pullCreds();
+  if (!creds) {
+    statusEl.textContent = '✗ Could not find your account. Check your Supabase URL, key and User ID.';
+    statusEl.style.background = '#FDF0F0'; statusEl.style.color = '#D94040';
+    return;
+  }
+
+  // Store credential hashes locally so login works
+  localStorage.setItem('ledger_auth_user', creds.userHash);
+  localStorage.setItem('ledger_auth_pass', creds.passHash);
+
+  statusEl.textContent = '✓ Account found! Enter your username and password to sign in.';
+  statusEl.style.background = '#f0fdf4'; statusEl.style.color = '#16a34a';
+
+  // Focus username field
+  document.getElementById('login-user').focus();
+};
+
 (function() {
   // ── Private: app unlock state ──
   let _unlocked = false;
@@ -3946,7 +4064,7 @@ function checkAutoReview() {
       sessionStorage.setItem('ledger_session', Date.now().toString());
       localStorage.setItem('ledger_login_attempts', '[]');
       errEl.style.display = 'none';
-      _showApp(true);
+      _showApp(true); // _showApp will auto-pull Supabase data if configured
     } else {
       recent.push(Date.now());
       localStorage.setItem('ledger_login_attempts', JSON.stringify(recent));
@@ -3994,6 +4112,8 @@ function checkAutoReview() {
     localStorage.setItem('ledger_auth_pass', ph);
     errEl.style.display = 'none';
     ['cp-current','cp-new-user','cp-new','cp-confirm'].forEach(id => document.getElementById(id).value = '');
+    // Push new credential hashes to cloud for cross-device sync
+    DB.pushCreds().catch(() => {});
     closeModal('modal-change-password');
     toast('Password updated! New credentials active next login.', 'success');
   };
