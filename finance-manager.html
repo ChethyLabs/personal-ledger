@@ -3183,6 +3183,7 @@ async function testAndPullSupabase() {
   if (count !== false && count > 0) {
     el.textContent = '✓ Pulled ' + count + ' keys from cloud. Reloading...';
     el.style.color = 'var(--success)';
+    sessionStorage.setItem('ledger_just_synced', count.toString());
     setTimeout(() => location.reload(), 1200);
   } else if (count === 0) {
     el.textContent = 'Cloud is empty — push your local data first.';
@@ -4037,13 +4038,22 @@ window.loadAccountFromCloud = async function() {
         // Auto-pull from Supabase if configured (silent, won't block UI)
         const s = DB.get('settings') || {};
         if (s.supabaseUrl && s.supabaseKey) {
+          // Show syncing indicator
+          const toastEl = document.createElement('div');
+          toastEl.className = 'toast';
+          toastEl.textContent = '☁ Syncing from cloud...';
+          toastEl.style.cssText = 'opacity:1;transform:translateY(0)';
+          document.getElementById('toast-container')?.appendChild(toastEl);
+
           const pulled = await DB.pullAll();
+          toastEl.remove();
+
           if (pulled && pulled > 0) {
-            // Data updated from cloud — re-render
-            renderDashboard();
-            updateApiKeyStatus();
-            checkAutoReview();
-            toast('✓ Synced from cloud (' + pulled + ' keys)', 'success');
+            // Reload the page so ALL data re-initializes from the freshly pulled localStorage
+            // Save session so user stays logged in after reload
+            sessionStorage.setItem('ledger_session', Date.now().toString());
+            sessionStorage.setItem('ledger_just_synced', pulled.toString());
+            location.reload();
             return;
           }
         }
@@ -4154,6 +4164,12 @@ window.loadAccountFromCloud = async function() {
     const session = sessionStorage.getItem('ledger_session');
     if (session) {
       _showApp(false);
+      // Show sync success toast if we just reloaded after a cloud pull
+      const justSynced = sessionStorage.getItem('ledger_just_synced');
+      if (justSynced) {
+        sessionStorage.removeItem('ledger_just_synced');
+        requestAnimationFrame(() => toast('✓ Synced from cloud (' + justSynced + ' keys)', 'success'));
+      }
     } else {
       _showLogin();
     }
