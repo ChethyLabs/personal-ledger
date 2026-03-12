@@ -2023,12 +2023,13 @@ function buildMergedUpcoming() {
 
       const createdAt = r.createdAt || Date.now();
 
-      // For past/current month instances: only show if item existed before the due date
-      // This prevents newly-added items from generating fake overdue entries
-      if (mOffset <= 0) {
-        if (createdAt > dueDate.getTime()) return; // item didn't exist when this was due
-        if (dueDate > todayMidnight) return;        // due date hasn't passed yet (future in current month)
-      }
+      // Skip if item didn't exist when this was due (prevents fake historical overdues)
+      if (createdAt > dueDate.getTime()) return;
+
+      // For past months only: skip future dates (safety check)
+      if (mOffset < 0 && dueDate > todayMidnight) return;
+
+      // Current month past-due + future months fall through normally
 
       const paid = isRecurringPaid(r.id, y, mo);
       // Skip paid past instances
