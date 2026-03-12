@@ -3344,53 +3344,79 @@ function buildLeanContext(mode = 'general') {
   const budget = DB.get('budget')   || {};
   const { income, spent, byCategory } = getMonthlyStats();
   const balance  = getBalance();
-  const debts    = (DB.get('debts')    || []).filter(d => d.direction === 'owe');
-  const goals    = (DB.get('goals')    || []).filter(g => g.current < g.target);
-  const upcoming = (DB.get('upcoming') || []).filter(u => daysFrom(u.date) >= 0 && daysFrom(u.date) <= 14);
-  const txns     = (DB.get('transactions') || []).slice(-8); // last 8 only
-  const monthlySummary = DB.get('monthlySummary') || null; // recursive summary
+  const debts    = DB.get('debts')  || [];
+  const goals    = (DB.get('goals') || []).filter(g => g.current < g.target);
+  const txns     = (DB.get('transactions') || []).slice(-10);
+  const monthlySummary = DB.get('monthlySummary') || null;
+
+  // One-time upcoming events (next 30 days)
+  const upcomingOnce = (DB.get('upcoming') || [])
+    .filter(u => { const d = daysFrom(u.date); return d >= 0 && d <= 30; })
+    .sort((a,b) => new Date(a.date) - new Date(b.date));
+
+  // Recurring payments with next due date
+  const now = new Date();
+  const yr = now.getFullYear(), mo = now.getMonth(), today = now.getDate();
+  const recurringItems = (DB.get('recurring') || []).map(r => {
+    const dueDay = r.day;
+    const dueDate = dueDay >= today ? new Date(yr, mo, dueDay) : new Date(yr, mo + 1, dueDay);
+    const dueDays = Math.round((dueDate - now) / 86400000);
+    const paidKey = 'recPaid_' + yr + '_' + String(mo+1).padStart(2,'0') + '_' + r.id;
+    const isPaid = !!DB.get(paidKey);
+    return { name: r.name, amount: r.amount, category: r.category, dueDay, dueDays, isPaid };
+  }).sort((a,b) => a.dueDays - b.dueDays);
+
+  // Bank savings total
+  const bankEntries = DB.get('bankEntries') || [];
+  const totalSavings = bankEntries.reduce((s,e) => s + (e.balance||0), 0);
 
   const harshness = s.harshness === 'brutal'
-    ? 'Brutally honest. Call out bad decisions directly, proportional to stupidity. No sugarcoating.'
+    ? 'Brutally honest. Call out bad decisions directly. No sugarcoating.'
     : s.harshness === 'firm' ? 'Firm but kind.' : 'Gentle and encouraging.';
 
-  // Core identity — always included (~120 tokens)
-  let prompt = `You are a ${harshness} personal finance advisor for ${s.name || 'a Sri Lankan A/L student'} pursuing embedded systems engineering. Tight budget, has a girlfriend (dates/gifts matter). All amounts in LKR. Be concise.
+  const todayStr = now.toISOString().split('T')[0];
 
-SNAPSHOT: balance=LKR${balance.toFixed(0)} | this month: in=LKR${income.toFixed(0)} out=LKR${spent.toFixed(0)}
-BUDGET: ${JSON.stringify(budget)}
-SPENDING THIS MONTH: ${JSON.stringify(byCategory)}`;
+  let prompt = `You are a ${harshness} personal finance advisor for ${s.name || 'a Sri Lankan A/L student'} pursuing embedded systems engineering. Has a girlfriend (dates/gifts matter). All amounts in LKR. Today: ${todayStr}.
 
-  // Add recent transactions only for general/chat mode
-  if (mode === 'general' || mode === 'chat') {
-    prompt += `
-RECENT TXN (last 8): ${txns.map(t=>`${t.date} ${t.type==='income'?'+':'-'}${t.amount} ${t.category} "${t.description}"`).join(' | ')}`;
-  }
+FINANCES:
+- Balance: LKR${balance.toFixed(0)} | Bank savings: LKR${totalSavings.toFixed(0)}
+- This month: income=LKR${income.toFixed(0)}, spent=LKR${spent.toFixed(0)}, remaining=LKR${(income-spent).toFixed(0)}
+- Budget limits: ${Object.entries(budget).map(([k,v])=>`${k}=LKR${v}`).join(', ')}
+- Spent by category: ${Object.entries(byCategory).map(([k,v])=>`${k}=LKR${v.toFixed(0)}`).join(', ')}`;
 
-  // Add debts if any
-  if (debts.length > 0) {
-    prompt += `
-DEBTS: ${debts.map(d=>`${d.person} LKR${d.amount}${d.due?' due '+d.due:''}`).join(', ')}`;
-  }
+  // Debts — show both directions
+  const owe  = debts.filter(d=>d.direction==='owe');
+  const owed = debts.filter(d=>d.direction==='owed');
+  if (owe.length)  prompt += `\n- I owe: ${owe.map(d=>`${d.person} LKR${d.amount}${d.due?' (due '+d.due+')':''}`).join(', ')}`;
+  if (owed.length) prompt += `\n- Owed to me: ${owed.map(d=>`${d.person} LKR${d.amount}`).join(', ')}`;
 
-  // Add active goals
   if (goals.length > 0) {
-    prompt += `
-GOALS: ${goals.map(g=>`${g.name} ${fmt(g.current)}/${fmt(g.target)}${g.deadline?' by '+g.deadline:''}`).join(' | ')}`;
+    prompt += `\n- Goals: ${goals.map(g=>`${g.name} LKR${(g.current||0).toFixed(0)}/LKR${g.target}${g.deadline?' by '+g.deadline:''}`).join(' | ')}`;
   }
 
-  // Add upcoming only if relevant
-  if (upcoming.length > 0) {
-    prompt += `
-UPCOMING 14D: ${upcoming.map(u=>`${u.label} on ${u.date}${u.cost?' LKR'+u.cost:''}`).join(' | ')}`;
+  // Recurring payments — always include, critical for planning
+  if (recurringItems.length > 0) {
+    prompt += `\n\nRECURRING PAYMENTS (every month):\n${recurringItems.map(r =>
+      `- ${r.name} [${r.category}]: LKR${r.amount} — due day ${r.dueDay} (${r.isPaid ? 'already paid this month' : `in ${r.dueDays} days`})`
+    ).join('\n')}`;
   }
 
-  // Attach recursive monthly summary if it exists — this is the key optimization
+  // One-time upcoming events
+  if (upcomingOnce.length > 0) {
+    prompt += `\n\nONE-TIME UPCOMING (next 30 days):\n${upcomingOnce.map(u =>
+      `- ${u.label}: ${u.date} (${daysFrom(u.date)} days away)${u.cost?' LKR'+u.cost:''}`
+    ).join('\n')}`;
+  }
+
+  // Recent transactions
+  if ((mode === 'general' || mode === 'chat') && txns.length > 0) {
+    prompt += `\n\nRECENT TRANSACTIONS:\n${txns.map(t =>
+      `- ${t.date} ${t.type==='income'?'IN':'OUT'} LKR${t.amount} [${t.category}] ${t.description}`
+    ).join('\n')}`;
+  }
+
   if (monthlySummary) {
-    prompt += `
-
-HISTORY SUMMARY (all previous months, recursively compressed):
-${monthlySummary}`;
+    prompt += `\n\nPREVIOUS MONTHS SUMMARY:\n${monthlySummary}`;
   }
 
   return prompt;
